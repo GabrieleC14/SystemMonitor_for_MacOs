@@ -9,7 +9,7 @@ int main(){
     char buffer[1024];
     char command[256];
 
-    // Esempio: Interroga i log da com.apple.xpc.launchd degli ultimi 5 minuti
+    // Interroga i log da com.apple.xpc.launchd degli ultimi 5 minuti
     snprintf(command, sizeof(command), "log show --last 5m --predicate 'subsystem == \"com.apple.xpc.launchd\"' --info --debug");
 
     fp = popen(command, "r");
