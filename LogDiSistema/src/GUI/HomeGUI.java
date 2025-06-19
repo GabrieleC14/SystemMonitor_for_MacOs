@@ -37,36 +37,92 @@ public class HomeGUI extends JFrame {
 		        try {
 		            HomeGUI frame = new HomeGUI();
 		            frame.setVisible(true);
-
+		            
+		            String os = System.getProperty("os.name");
+		            
 		            Timer timeLog = new Timer();
 		            TimerTask task = new TimerTask() {
 		                @Override
 		                public void run() {
-		                    try {
-		                        ProcessBuilder pbLoggerC = new ProcessBuilder("/Users/gabriele/Documents/LogDiSistmaC/logger");
-		                        //ProcessBuilder pbLoggerC = new ProcessBuilder("");
-		                        pbLoggerC.redirectErrorStream(true);
-		                        Process process = pbLoggerC.start();
+		                	
+		                	if(os.contains("Mac OS")) {
+		                		
+		                		try {
+		                			
+		                			 ProcessBuilder pbLoggerC = new ProcessBuilder("/Users/gabriele/Documents/LogDiSistmaC/logger");  //solo per i test 
+		                			 
+		                			/*File jarFile = new File(HomeGUI.class
+		                                    .getProtectionDomain()
+		                                    .getCodeSource()
+		                                    .getLocation()
+		                                    .toURI());
 
-		                        try (BufferedReader readerLogger = new BufferedReader(
-		                                new InputStreamReader(process.getInputStream()))) {
+		                            File baseDir = jarFile.getParentFile();
+		                            
+		                            System.out.println(baseDir);
+		                            
+		                            File loggerExecutable = new File(baseDir, "logger"); // O "logger.exe" su Windows
+    
+		                            ProcessBuilder pbLoggerC = new ProcessBuilder(loggerExecutable.getAbsolutePath());
 
-		                            String line;
-		                            while ((line = readerLogger.readLine()) != null) {
-		                                String logLine = line;
-		                                System.out.println("!!!");
-		                                SwingUtilities.invokeLater(() -> {
-		                                    JLabel lbl = new JLabel(logLine);
-		                                    frame.panelLog.add(lbl);
-		                                    frame.panelLog.revalidate();
-		                                    frame.panelLog.repaint();
-		                                });
-		                            }
+		                            pbLoggerC.directory(baseDir);
+		                            
+			                        //ProcessBuilder pbLoggerC = new ProcessBuilder("");
+			                        pbLoggerC.redirectErrorStream(true);
+			                        */ 
+		                			Process process = pbLoggerC.start();
 
-		                        }
-		                    } catch (Exception e) {
-		                        System.err.println("Errore: " + e.getMessage());
-		                    }
+			                        try (BufferedReader readerLogger = new BufferedReader(
+			                                new InputStreamReader(process.getInputStream()))) {
+
+			                            String line;
+			                            while ((line = readerLogger.readLine()) != null) {
+			                                String logLine = line;
+			                                System.out.println("!!!");
+			                                SwingUtilities.invokeLater(() -> {
+			                                    JLabel lbl = new JLabel(logLine);
+			                                    frame.panelLog.add(lbl);
+			                                    frame.panelLog.revalidate();
+			                                    frame.panelLog.repaint();
+			                                });
+			                            }
+
+			                        }
+			                    } catch (Exception e) {
+			                        System.err.println("Errore: " + e.getMessage());
+			                    }
+		                		
+		                	}else if(os.contains("Windows")) { //da fare su windows 
+		                		
+		                		try {
+			                        ProcessBuilder pbLoggerC = new ProcessBuilder("/Users/gabriele/Documents/LogDiSistmaC/logger");
+			                        //ProcessBuilder pbLoggerC = new ProcessBuilder("");
+			                        pbLoggerC.redirectErrorStream(true);
+			                        Process process = pbLoggerC.start();
+
+			                        try (BufferedReader readerLogger = new BufferedReader(
+			                                new InputStreamReader(process.getInputStream()))) {
+
+			                            String line;
+			                            while ((line = readerLogger.readLine()) != null) {
+			                                String logLine = line;
+			                                System.out.println("!!!");
+			                                SwingUtilities.invokeLater(() -> {
+			                                    JLabel lbl = new JLabel(logLine);
+			                                    frame.panelLog.add(lbl);
+			                                    frame.panelLog.revalidate();
+			                                    frame.panelLog.repaint();
+			                                });
+			                            }
+
+			                        }
+			                    } catch (Exception e) {
+			                        System.err.println("Errore: " + e.getMessage());
+			                    }
+		                		
+		                	}
+		                	
+		                    
 		                }
 		            };
 
